@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vick Vianna — Fotografia e Vídeo</title>
+<meta name="description" content="Portfólio de fotografia e vídeo de Vick Vianna.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Instrument+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EDEFF2;--ink:#131B26;--mute:#566070;--line:#CDD2D9;--acc:#2540E8;--on:#fff;--p1:#C9D0DA;--p2:#AEB8C6}
+@media(prefers-color-scheme:dark){:root{--bg:#10151C;--ink:#E9ECF1;--mute:#98A2B1;--line:#2A323D;--acc:#8FA0FF;--on:#10151C;--p1:#1C2430;--p2:#2A3544}}
+*{box-sizing:border-box;margin:0}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:400 1.0625rem/1.6 "Instrument Sans",system-ui,sans-serif}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--acc);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(1rem,4vw,2.5rem)}
+header .wrap{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;padding-top:1.25rem;padding-bottom:1.25rem}
+nav{display:flex;gap:1.5rem;flex-wrap:wrap}
+nav a,.logo,.back{text-decoration:none;font-weight:600}
+nav a:hover,.back:hover{color:var(--acc)}
+h1,h2{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:800;letter-spacing:-.03em;line-height:.95}
+h1{font-size:clamp(3.5rem,13vw,10rem);margin:clamp(2rem,6vw,4rem) 0 1rem}
+h2{font-size:clamp(2.2rem,6vw,4rem);margin-bottom:.75rem}
+.role{font-size:1.25rem;color:var(--mute);max-width:34ch}
+.lead{color:var(--mute);max-width:52ch;margin-bottom:2rem}
+.strip{display:flex;gap:.75rem;align-items:flex-end;margin-top:clamp(2rem,5vw,3.5rem);overflow-x:auto;padding-bottom:.5rem}
+.f{flex:0 0 auto;height:clamp(140px,22vw,260px);aspect-ratio:3/2;animation:in .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i)*90ms)}
+@keyframes in{from{opacity:0;transform:translateX(40px)}}
+section{padding:clamp(3rem,8vw,6rem) 0;border-top:1px solid var(--line)}
+.m{position:relative;display:block;border:0;padding:0;overflow:hidden;color:inherit;font:inherit;background:linear-gradient(135deg,var(--p1),var(--p2))}
+button.m{cursor:pointer}
+.m img{display:block;width:100%;height:100%;object-fit:cover}
+.m span{position:absolute;inset:0;display:grid;place-items:center;color:var(--mute);font-weight:600}
+.chips{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
+.chips button{font:inherit;font-weight:600;padding:.45rem 1rem;border:1.5px solid var(--line);border-radius:999px;background:none;color:inherit;cursor:pointer}
+.chips button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.75rem 1rem}
+.cards .m{width:100%;aspect-ratio:3/2}
+.cards .vd{aspect-ratio:16/9}
+.cards h3{font:600 1.1rem "Instrument Sans",sans-serif;margin-top:.6rem}
+.cards p{color:var(--mute);font-size:.95rem}
+.v::after{content:"▶";position:absolute;inset:50% auto auto 50%;translate:-50% -50%;width:3.5rem;height:3.5rem;display:grid;place-items:center;border-radius:50%;background:var(--acc);color:var(--on)}
+.grid{columns:3 280px;column-gap:1rem}
+.grid .m{width:100%;margin-bottom:1rem;break-inside:avoid}
+.back{display:inline-block;margin-bottom:1.5rem}
+.about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:clamp(1.5rem,5vw,4rem);align-items:start}
+.about p+p{margin-top:1rem}
+@media(max-width:720px){.about{grid-template-columns:1fr}}
+.cta{display:inline-block;background:var(--acc);color:var(--on);font-weight:600;padding:.9rem 1.6rem;border-radius:999px;text-decoration:none}
+.links{display:flex;gap:1.25rem;flex-wrap:wrap;margin-top:1.5rem}
+footer{border-top:1px solid var(--line);padding:2rem 0 3rem;color:var(--mute);font-size:.9rem}
+dialog{border:0;padding:0;background:transparent;width:min(94vw,1100px);max-width:none;margin:auto;overflow:visible}
+dialog::backdrop{background:rgba(8,10,14,.88)}
+dialog img{display:block;width:100%;max-height:85vh;object-fit:contain}
+dialog iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
+.x{position:absolute;top:-2.75rem;right:0;font:inherit;font-weight:600;background:none;border:0;color:#fff;cursor:pointer}
+.pv,.nx{position:absolute;top:50%;translate:0 -50%;width:3rem;height:3rem;border-radius:50%;border:0;background:rgba(0,0,0,.55);color:#fff;font-size:1.6rem;cursor:pointer}
+.pv{left:.5rem}.nx{right:.5rem}
+dialog:not(.nav) .pv,dialog:not(.nav) .nx{display:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="logo" href="#home">Vick Vianna</a>
+  <nav aria-label="Principal"><a href="#fotografia">Fotografia</a><a href="#video">Vídeo</a><a href="#sobre">Sobre</a><a href="#contato">Contato</a></nav>
+</div></header>
+
+<main id="home">
+<div class="wrap">
+  <h1>Vick Vianna.</h1>
+  <p class="role">Fotografia e vídeo.</p>
+  <div class="strip" id="strip" aria-hidden="true"></div>
+</div>
+
+<section id="fotografia"><div class="wrap">
+  <h2>Fotografia</h2>
+  <p class="lead">Escolha um álbum para ver todas as fotos.</p>
+  <div class="chips" id="chips"></div>
+  <div class="cards" id="covers"></div>
+</div></section>
+
+<section id="video"><div class="wrap">
+  <h2>Vídeo</h2>
+  <p class="lead">Clique para assistir sem sair do site.</p>
+  <div class="cards" id="vids"></div>
+</div></section>
+
+<section id="sobre"><div class="wrap about">
+  <div class="m" style="aspect-ratio:4/5"><span>Seu retrato aqui</span></div>
+  <div>
+    <h2>Sobre</h2>
+    <p>Sou videomaker há 7 anos e atuo também como fotógrafa independente. Sou formada em Publicidade e Propaganda pela UFRGS, e levo essa visão de comunicação para cada imagem que faço.</p>
+    <p>Troque este texto pela sua história: como você começou, que tipo de trabalho mais gosta de fazer e como é trabalhar com você.</p>
+  </div>
+</div></section>
+
+<section id="contato"><div class="wrap">
+  <h2>Vamos conversar?</h2>
+  <p class="lead">Conte o que você precisa e eu respondo com um orçamento.</p>
+  <a class="cta" id="wa" href="#contato">Chamar no WhatsApp</a>
+  <div class="links"><a id="em" href="#contato">E-mail</a><a id="ig" href="#contato">Instagram</a><a id="vm" href="#contato">Vimeo</a></div>
+</div></section>
+</main>
+
+<main id="galeria" hidden><div class="wrap" style="padding-top:1.5rem;padding-bottom:4rem">
+  <a class="back" href="#fotografia">← Todos os álbuns</a>
+  <h2 id="gt"></h2>
+  <p class="lead" id="gd"></p>
+  <div class="grid" id="gp"></div>
+</div></main>
+
+<footer><div class="wrap">© <span id="ano"></span> Vick Vianna. Todos os direitos reservados.</div></footer>
+
+<dialog id="dlg"><button class="x" aria-label="Fechar">Fechar ✕</button><button class="pv" data-d="-1" aria-label="Foto anterior">‹</button><button class="nx" data-d="1" aria-label="Próxima foto">›</button><div id="box"></div></dialog>
+
+<script>
+/* ===== EDITE AQUI ===== */
+const C={whats:"5551980610834",email:"",insta:"",vimeo:""};
+const ph=n=>Array(n).fill(""); // espaços vazios de teste; troque por caminhos reais
+/* Álbuns: cover = foto de capa; fotos = lista de fotos do álbum.
+   Exemplo: {t:"Ensaio na praia",d:"Verão 2026",cat:"Ensaios",cover:"fotos/praia/capa.jpg",fotos:["fotos/praia/01.jpg","fotos/praia/02.jpg"]} */
+const A=[
+{t:"Álbum 1",d:"Local ou evento · 2026",cat:"Categoria A",cover:"",fotos:ph(6)},
+{t:"Álbum 2",d:"Local ou evento · 2026",cat:"Categoria B",cover:"",fotos:ph(8)},
+{t:"Álbum 3",d:"Local ou evento · 2025",cat:"Categoria A",cover:"",fotos:ph(5)},
+{t:"Álbum 4",d:"Local ou evento · 2025",cat:"Categoria C",cover:"",fotos:ph(7)}
+];
+// Vídeos: url = link do Vimeo ou YouTube (a capa é buscada automaticamente; use thumb só se quiser outra)
+const V=[
+{url:"",thumb:"",t:"Título do vídeo 1",d:"Cliente · 2026"},
+{url:"",thumb:"",t:"Título do vídeo 2",d:"Cliente · 2025"},
+{url:"",thumb:"",t:"Título do vídeo 3",d:"Cliente · 2025"}
+];
+/* ===== FIM ===== */
+
+const $=s=>document.querySelector(s),dlg=$("#dlg"),box=$("#box"),R=["3/2","4/5","1/1","3/2","4/5","3/2"];
+const img=(s,a)=>s?`<img src="${s}" alt="${a}" loading="lazy">`:`<span>Sua foto aqui</span>`;
+const yt=u=>(u.match(/(?:youtu\.be\/|v=|embed\/)([\w-]{11})/)||[])[1];
+const embed=u=>{const y=yt(u);if(y)return`https://www.youtube.com/embed/${y}?autoplay=1&rel=0`;const m=u.match(/vimeo\.com\/(?:video\/)?(\d+)/);return m?`https://player.vimeo.com/video/${m[1]}?autoplay=1`:""};
+let cur=[],idx=0;
+
+$("#strip").innerHTML=A.slice(0,5).map((a,i)=>`<div class="m f" style="--i:${i}">${img(a.cover,a.t)}</div>`).join("");
+
+function covers(cat){$("#covers").innerHTML=A.map((a,i)=>[a,i]).filter(([a])=>!cat||a.cat===cat).map(([a,i])=>`<article><a class="m" href="#album-${i}" aria-label="Abrir álbum: ${a.t}">${img(a.cover,a.t)}</a><h3>${a.t}</h3><p>${a.d} · ${a.fotos.length} fotos</p></article>`).join("")}
+$("#chips").innerHTML=["Todos",...new Set(A.map(a=>a.cat))].map((c,i)=>`<button aria-pressed="${i==0}" data-c="${i?c:""}">${c}</button>`).join("");
+covers("");
+
+$("#vids").innerHTML=V.map((v,i)=>{const t=v.thumb||(yt(v.url)?`https://i.ytimg.com/vi/${yt(v.url)}/hqdefault.jpg`:"");
+return`<article><button class="m vd${v.url?" v":""}" data-v="${i}" aria-label="Assistir: ${v.t}">${t?`<img src="${t}" alt="" loading="lazy">`:`<span>Seu vídeo aqui</span>`}</button><h3>${v.t}</h3><p>${v.d}</p></article>`}).join("");
+V.forEach((v,i)=>{if(!v.thumb&&/vimeo\.com/.test(v.url))fetch("https://vimeo.com/api/oembed.json?url="+encodeURIComponent(v.url)).then(r=>r.json()).then(d=>{$(`[data-v="${i}"]`).innerHTML=`<img src="${d.thumbnail_url}" alt="" loading="lazy">`}).catch(()=>{})});
+
+function route(){
+  const m=location.hash.match(/^#album-(\d+)$/),a=m&&A[m[1]];
+  $("#home").hidden=!!a;$("#galeria").hidden=!a;
+  if(a){cur=a.fotos;$("#gt").textContent=a.t;$("#gd").textContent=a.d;
+    $("#gp").innerHTML=a.fotos.map((s,j)=>`<button class="m" ${s?"":`style="aspect-ratio:${R[j%6]}"`} data-j="${j}" aria-label="Ampliar foto ${j+1}">${img(s,a.t+" — foto "+(j+1))}</button>`).join("");
+    scrollTo(0,0)}
+  else if(location.hash.length>1)document.getElementById(location.hash.slice(1))?.scrollIntoView();
+}
+addEventListener("hashchange",route);route();
+
+function photo(j){idx=(j+cur.length)%cur.length;box.innerHTML=`<img src="${cur[idx]}" alt="Foto ${idx+1} de ${cur.length}">`}
+document.addEventListener("click",e=>{
+  const c=e.target.closest("[data-c]");
+  if(c){document.querySelectorAll("#chips button").forEach(b=>b.setAttribute("aria-pressed",b===c));covers(c.dataset.c);return}
+  const p=e.target.closest("[data-j]");
+  if(p){if(cur[p.dataset.j]){photo(+p.dataset.j);dlg.classList.add("nav");dlg.showModal()}return}
+  const d=e.target.closest("[data-d]");
+  if(d){photo(idx+ +d.dataset.d);return}
+  const v=e.target.closest("[data-v]");
+  if(v){const u=embed(V[v.dataset.v].url);if(u){box.innerHTML=`<iframe src="${u}" allow="autoplay; fullscreen" allowfullscreen title="${V[v.dataset.v].t}"></iframe>`;dlg.classList.remove("nav");dlg.showModal()}return}
+  if(e.target===dlg||e.target.closest(".x"))dlg.close();
+});
+addEventListener("keydown",e=>{if(dlg.open&&dlg.classList.contains("nav")){if(e.key=="ArrowRight")photo(idx+1);if(e.key=="ArrowLeft")photo(idx-1)}});
+dlg.addEventListener("close",()=>box.innerHTML="");
+
+$("#wa").href=`https://wa.me/${C.whats}?text=${encodeURIComponent("Olá! Vi seu portfólio e gostaria de pedir um orçamento.")}`;
+[["#em",C.email&&"mailto:"+C.email],["#ig",C.insta],["#vm",C.vimeo]].forEach(([q,h])=>h?$(q).href=h:$(q).hidden=true);
+$("#ano").textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
