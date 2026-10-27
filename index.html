@@ -27,9 +27,6 @@ h1{font-size:clamp(3.5rem,13vw,10rem);margin:clamp(2rem,6vw,4rem) 0 1rem}
 h2{font-size:clamp(2.2rem,6vw,4rem);margin-bottom:.75rem}
 .role{font-size:1.25rem;color:var(--mute);max-width:34ch}
 .lead{color:var(--mute);max-width:52ch;margin-bottom:2rem}
-.strip{display:flex;gap:.75rem;align-items:flex-end;margin-top:clamp(2rem,5vw,3.5rem);overflow-x:auto;padding-bottom:.5rem}
-.f{flex:0 0 auto;height:clamp(140px,22vw,260px);aspect-ratio:3/2;animation:in .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i)*90ms)}
-@keyframes in{from{opacity:0;transform:translateX(40px)}}
 section{padding:clamp(3rem,8vw,6rem) 0;border-top:1px solid var(--line)}
 .m{position:relative;display:block;border:0;padding:0;overflow:hidden;color:inherit;font:inherit;background:linear-gradient(135deg,var(--p1),var(--p2))}
 button.m{cursor:pointer}
@@ -62,6 +59,26 @@ dialog iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
 .pv{left:.5rem}.nx{right:.5rem}
 dialog:not(.nav) .pv,dialog:not(.nav) .nx{display:none}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
+body.on-home header{position:absolute;inset:0 0 auto 0;z-index:5;color:#fff;text-shadow:0 1px 14px rgba(0,0,0,.45)}
+body.on-home nav a:hover{color:#fff;opacity:.75}
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;color:#fff;overflow:hidden;background:linear-gradient(135deg,var(--p1),var(--p2))}
+.hero::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(8,6,16,.5),rgba(8,6,16,.1) 28%,rgba(8,6,16,.12) 65%,rgba(8,6,16,.55))}
+.sl{position:absolute;inset:0;opacity:0;transition:opacity 1.4s ease}
+.sl.on{opacity:1}
+.sl img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 30%;transform:scale(1);transition:transform 9s linear}
+.sl.on img{transform:scale(1.08)}
+.hero .wrap{position:relative;z-index:2;width:100%;display:flex;flex-direction:column;align-items:center;gap:.5rem;padding-bottom:clamp(1.25rem,3vw,2rem)}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.down{display:grid;place-items:center;width:3rem;height:3rem;color:#fff;text-decoration:none}
+.down svg{width:1.75rem;height:1.75rem;animation:bob 2.2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(6px)}}
+body.on-home .logo{font-size:1.15rem;letter-spacing:.14em;text-transform:uppercase}
+body.on-home nav a{font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500}
+.dots{display:flex;gap:.5rem}
+.dots button{width:2.25rem;height:1.25rem;padding:.55rem 0;border:0;border-radius:2px;background:rgba(255,255,255,.4);background-clip:content-box;cursor:pointer}
+.dots button[aria-current=true]{background-color:#fff}
+@media(max-width:560px){body.on-home nav{gap:.9rem}body.on-home nav a{font-size:.7rem;letter-spacing:.1em}body.on-home .logo{font-size:1rem}}
+@media(prefers-reduced-motion:reduce){.sl img,.sl.on img{transform:none;transition:none}.down svg{animation:none}}
 </style>
 </head>
 <body>
@@ -71,10 +88,13 @@ dialog:not(.nav) .pv,dialog:not(.nav) .nx{display:none}
 </div></header>
 
 <main id="home">
-<div class="wrap">
-  <h1>Vick Vianna.</h1>
-  <p class="role">Fotografia e vídeo.</p>
-  <div class="strip" id="strip" aria-hidden="true"></div>
+<div class="hero">
+  <div id="slides" aria-hidden="true"></div>
+  <div class="wrap">
+    <h1 class="vh">Vick Vianna — Fotografia e vídeo</h1>
+    <a class="down" href="#fotografia" aria-label="Ver fotografia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></a>
+    <div class="dots" id="dots"></div>
+  </div>
 </div>
 
 <section id="fotografia"><div class="wrap">
@@ -146,7 +166,15 @@ const yt=u=>(u.match(/(?:youtu\.be\/|v=|embed\/)([\w-]{11})/)||[])[1];
 const embed=u=>{const y=yt(u);if(y)return`https://www.youtube.com/embed/${y}?autoplay=1&rel=0`;const m=u.match(/vimeo\.com\/(?:video\/)?(\d+)/);return m?`https://player.vimeo.com/video/${m[1]}?autoplay=1`:""};
 let cur=[],idx=0;
 
-$("#strip").innerHTML=A.slice(0,5).map((a,i)=>`<div class="m f" style="--i:${i}">${img(a.cover,a.t)}</div>`).join("");
+/* Destaques do topo: por padrão usa a capa de cada álbum. Para escolher outras fotos, troque por uma lista, ex.: const H=["fotos/elisa-soares/03.jpg","fotos/4am-culture/05.jpg"]; */
+const H=A.map(a=>a.cover).filter(Boolean);
+let hs=0,ht;
+$("#slides").innerHTML=H.map((s,i)=>`<div class="sl${i?"":" on"}"><img src="${s}" alt=""${i?"":' fetchpriority="high"'}></div>`).join("");
+$("#dots").innerHTML=H.length>1?H.map((_,i)=>`<button data-h="${i}" aria-label="Foto ${i+1}" aria-current="${i==0}"></button>`).join(""):"";
+function show(n){hs=(n+H.length)%H.length;document.querySelectorAll(".sl").forEach((e,i)=>e.classList.toggle("on",i==hs));document.querySelectorAll("#dots button").forEach((b,i)=>b.setAttribute("aria-current",i==hs))}
+function play(){clearInterval(ht);if(H.length>1&&!matchMedia("(prefers-reduced-motion:reduce)").matches)ht=setInterval(()=>show(hs+1),5500)}
+play();
+$("#dots").addEventListener("click",e=>{const h=e.target.closest("[data-h]");if(h){show(+h.dataset.h);play()}});
 
 function covers(cat){$("#covers").innerHTML=A.map((a,i)=>[a,i]).filter(([a])=>!cat||a.cat===cat).map(([a,i])=>`<article><a class="m" href="#album-${i}" aria-label="Abrir álbum: ${a.t}">${img(a.cover,a.t)}</a><h3>${a.t}</h3><p>${a.d}</p></article>`).join("")}
 $("#chips").innerHTML=["Todos",...new Set(A.map(a=>a.cat))].map((c,i)=>`<button aria-pressed="${i==0}" data-c="${i?c:""}">${c}</button>`).join("");
@@ -158,7 +186,7 @@ V.forEach((v,i)=>{if(!v.thumb&&/vimeo\.com/.test(v.url))fetch("https://vimeo.com
 
 function route(){
   const m=location.hash.match(/^#album-(\d+)$/),a=m&&A[m[1]];
-  $("#home").hidden=!!a;$("#galeria").hidden=!a;
+  $("#home").hidden=!!a;$("#galeria").hidden=!a;document.body.classList.toggle("on-home",!a);
   if(a){cur=a.fotos;$("#gt").textContent=a.t;$("#gd").textContent=a.d;
     $("#gp").innerHTML=a.fotos.map((s,j)=>`<button class="m" ${s?"":`style="aspect-ratio:${R[j%6]}"`} data-j="${j}" aria-label="Ampliar foto ${j+1}">${img(s,a.t+" — foto "+(j+1))}</button>`).join("");
     scrollTo(0,0)}
