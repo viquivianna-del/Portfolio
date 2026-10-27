@@ -121,14 +121,9 @@ dialog:not(.nav) .pv,dialog:not(.nav) .nx{display:none}
 <script>
 /* ===== EDITE AQUI ===== */
 const C={whats:"5551980610834",email:"viquivianna@gmail.com",insta:"https://www.instagram.com/vickvianna_fotografia/",vimeo:""};
-const ph=n=>Array(n).fill(""); // espaços vazios de teste; troque por caminhos reais
-/* Álbuns: cover = foto de capa; fotos = lista de fotos do álbum.
-   Exemplo: {t:"Ensaio na praia",d:"Verão 2026",cat:"Ensaios",cover:"fotos/praia/capa.jpg",fotos:["fotos/praia/01.jpg","fotos/praia/02.jpg"]} */
+const alb=(t,d,cat,pasta,n,capa)=>{const f=i=>pasta+"/"+String(i).padStart(2,"0")+".jpg";return{t,d,cat,cover:f(capa),fotos:Array.from({length:n},(_,i)=>f(i+1))}};
 const A=[
-{t:"Álbum 1",d:"Local ou evento · 2026",cat:"Categoria A",cover:"",fotos:ph(6)},
-{t:"Álbum 2",d:"Local ou evento · 2026",cat:"Categoria B",cover:"",fotos:ph(8)},
-{t:"Álbum 3",d:"Local ou evento · 2025",cat:"Categoria A",cover:"",fotos:ph(5)},
-{t:"Álbum 4",d:"Local ou evento · 2025",cat:"Categoria C",cover:"",fotos:ph(7)}
+alb("Elisa Soares","Formatura","Formatura","fotos/elisa-soares",22,9)
 ];
 // Vídeos: url = link do Vimeo ou YouTube (a capa é buscada automaticamente; use thumb só se quiser outra)
 const V=[
