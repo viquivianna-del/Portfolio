@@ -148,7 +148,7 @@ let cur=[],idx=0;
 
 $("#strip").innerHTML=A.slice(0,5).map((a,i)=>`<div class="m f" style="--i:${i}">${img(a.cover,a.t)}</div>`).join("");
 
-function covers(cat){$("#covers").innerHTML=A.map((a,i)=>[a,i]).filter(([a])=>!cat||a.cat===cat).map(([a,i])=>`<article><a class="m" href="#album-${i}" aria-label="Abrir álbum: ${a.t}">${img(a.cover,a.t)}</a><h3>${a.t}</h3><p>${a.d} · ${a.fotos.length} fotos</p></article>`).join("")}
+function covers(cat){$("#covers").innerHTML=A.map((a,i)=>[a,i]).filter(([a])=>!cat||a.cat===cat).map(([a,i])=>`<article><a class="m" href="#album-${i}" aria-label="Abrir álbum: ${a.t}">${img(a.cover,a.t)}</a><h3>${a.t}</h3><p>${a.d}</p></article>`).join("")}
 $("#chips").innerHTML=["Todos",...new Set(A.map(a=>a.cat))].map((c,i)=>`<button aria-pressed="${i==0}" data-c="${i?c:""}">${c}</button>`).join("");
 covers("");
 
