@@ -35,6 +35,9 @@ button.m{cursor:pointer}
 .chips{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
 .chips button{font:inherit;font-weight:600;padding:.45rem 1rem;border:1.5px solid var(--line);border-radius:999px;background:none;color:inherit;cursor:pointer}
 .chips button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.more{display:flex;justify-content:center;margin-top:2rem}
+.more button{font:inherit;font-weight:600;padding:.6rem 1.5rem;border:1.5px solid var(--line);border-radius:999px;background:none;color:inherit;cursor:pointer}
+.more button:hover{border-color:var(--ink)}
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.75rem 1rem}
 .cards .m{width:100%;aspect-ratio:3/2}
 .cards .vd{aspect-ratio:16/9}
@@ -110,6 +113,7 @@ body.on-home nav a{font-size:.85rem;letter-spacing:.2em;text-transform:uppercase
   <p class="lead">Escolha um álbum para ver todas as fotos.</p>
   <div class="chips" id="chips"></div>
   <div class="cards" id="covers"></div>
+  <div class="more"><button id="more" hidden>Ver mais álbuns</button></div>
 </div></section>
 
 <section id="video"><div class="wrap">
@@ -190,9 +194,13 @@ probe(0);
 function show(n){if(H.length<2)return;hs=(n+H.length)%H.length;document.querySelectorAll(".sl").forEach((e,i)=>e.classList.toggle("on",i==hs));document.querySelectorAll("#dots button").forEach((b,i)=>b.setAttribute("aria-current",i==hs))}
 function play(){clearInterval(ht);if(!matchMedia("(prefers-reduced-motion:reduce)").matches)ht=setInterval(()=>show(hs+1),5500)}
 play();
+$("#more").onclick=()=>{exp=!exp;fit()};
+addEventListener("resize",fit);
 $("#dots").addEventListener("click",e=>{const h=e.target.closest("[data-h]");if(h){show(+h.dataset.h);play()}});
 
-function covers(cat){$("#covers").innerHTML=A.map((a,i)=>[a,i]).filter(([a])=>!cat||a.cat===cat).map(([a,i])=>`<article><a class="m" href="#album-${i}" aria-label="Abrir álbum: ${a.t}">${img(a.cover,a.t)}</a><h3>${a.t}</h3><p>${a.d}</p></article>`).join("")}
+let exp=false;
+function fit(){if($("#home").hidden)return;const g=$("#covers"),c=getComputedStyle(g).gridTemplateColumns.split(" ").length,n=c>1?c:3,k=[...g.children];k.forEach((c,x)=>c.hidden=!exp&&x>=n);const b=$("#more");b.hidden=k.length<=n;b.textContent=exp?"Ver menos":"Ver mais álbuns"}
+function covers(cat){$("#covers").innerHTML=A.map((a,i)=>[a,i]).filter(([a])=>!cat||a.cat===cat).map(([a,i])=>`<article><a class="m" href="#album-${i}" aria-label="Abrir álbum: ${a.t}">${img(a.cover,a.t)}</a><h3>${a.t}</h3><p>${a.d}</p></article>`).join("");exp=false;fit()}
 $("#chips").innerHTML=["Todos",...new Set(A.map(a=>a.cat))].map((c,i)=>`<button aria-pressed="${i==0}" data-c="${i?c:""}">${c}</button>`).join("");
 covers("");
 
@@ -202,7 +210,7 @@ V.forEach((v,i)=>{if(!v.thumb&&/vimeo\.com/.test(v.url))fetch("https://vimeo.com
 
 function route(){
   const m=location.hash.match(/^#album-(\d+)$/),a=m&&A[m[1]];
-  $("#home").hidden=!!a;$("#galeria").hidden=!a;document.body.classList.toggle("on-home",!a);
+  $("#home").hidden=!!a;$("#galeria").hidden=!a;fit();document.body.classList.toggle("on-home",!a);
   if(a){cur=a.fotos;$("#gt").textContent=a.t;$("#gd").textContent=a.d;
     $("#gp").innerHTML=a.fotos.map((s,j)=>`<button class="m" ${s?"":`style="aspect-ratio:${R[j%6]}"`} data-j="${j}" aria-label="Ampliar foto ${j+1}">${img(s,a.t+" — foto "+(j+1))}</button>`).join("");
     scrollTo(0,0)}
