@@ -216,7 +216,7 @@ function fit(force){
   g.classList.toggle("marq",mq);
   if(mq){
     g.innerHTML='<div class="track">'+Array.from({length:R*2},(_,r)=>CD.map(([a,i])=>card(a,i,r>0)).join("")).join("")+'</div>';
-    const t=g.firstChild;t.style.setProperty("--dur",Math.max(20,Math.round(t.scrollWidth/2/45))+"s");
+    const t=g.firstChild;t.style.setProperty("--dur",Math.max(40,Math.round(t.scrollWidth/2/22.5))+"s");
   }else{
     g.innerHTML=CD.map(([a,i])=>card(a,i,false)).join("");
     [...g.children].forEach((c,x)=>c.hidden=more&&!exp&&x>=n);
