@@ -38,6 +38,11 @@ button.m{cursor:pointer}
 .more{display:flex;justify-content:center;margin-top:2rem}
 .more button{font:inherit;font-weight:600;padding:.6rem 1.5rem;border:1.5px solid var(--line);border-radius:999px;background:none;color:inherit;cursor:pointer}
 .more button:hover{border-color:var(--ink)}
+#covers.marq{display:block;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
+.marq .track{display:flex;width:max-content;animation:mq var(--dur,60s) linear infinite}
+.marq article{flex:none;width:clamp(260px,28vw,340px);margin-right:1rem}
+.marq:hover .track,.marq:focus-within .track{animation-play-state:paused}
+@keyframes mq{to{transform:translateX(-50%)}}
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.75rem 1rem}
 .cards .m{width:100%;aspect-ratio:3/2}
 .cards .vd{aspect-ratio:16/9}
@@ -196,12 +201,28 @@ function show(n){if(H.length<2)return;hs=(n+H.length)%H.length;document.querySel
 function play(){clearInterval(ht);if(!matchMedia("(prefers-reduced-motion:reduce)").matches)ht=setInterval(()=>show(hs+1),5500)}
 play();
 $("#more").onclick=()=>{exp=!exp;fit()};
-addEventListener("resize",fit);
+addEventListener("resize",()=>fit());
 $("#dots").addEventListener("click",e=>{const h=e.target.closest("[data-h]");if(h){show(+h.dataset.h);play()}});
 
-let exp=false;
-function fit(){if($("#home").hidden)return;const g=$("#covers"),c=getComputedStyle(g).gridTemplateColumns.split(" ").length,n=c>1?c:3,k=[...g.children];k.forEach((c,x)=>c.hidden=!exp&&x>=n);const b=$("#more");b.hidden=k.length<=n;b.textContent=exp?"Ver menos":"Ver mais álbuns"}
-function covers(cat){$("#covers").innerHTML=A.map((a,i)=>[a,i]).filter(([a])=>!cat||a.cat===cat).map(([a,i])=>`<article><a class="m" href="#album-${i}" aria-label="Abrir álbum: ${a.t}">${img(a.cover,a.t)}</a><h3>${a.t}</h3><p>${a.d}</p></article>`).join("");exp=false;fit()}
+let exp=false,sig="",CD=[];
+function card(a,i,ghost){return `<article${ghost?' aria-hidden="true"':''}><a class="m" href="#album-${i}"${ghost?' tabindex="-1"':''} aria-label="Abrir álbum: ${a.t}">${img(a.cover,a.t)}</a><h3>${a.t}</h3><p>${a.d}</p></article>`}
+/* Com mais álbuns do que cabem numa linha, as capas rolam sem parar. "Ver mais álbuns" congela e mostra a grade completa. */
+function fit(force){
+  if($("#home").hidden)return;
+  const g=$("#covers"),b=$("#more"),W=g.clientWidth||1100,N=CD.length,cols=Math.max(1,Math.floor((W+16)/316)),n=cols>1?cols:3,more=N>n,
+    rm=matchMedia("(prefers-reduced-motion:reduce)").matches,mq=more&&!exp&&!rm,R=mq?Math.max(1,Math.ceil(W/(N*276))):0,k=[mq,exp,N,R].join();
+  b.hidden=!more;b.textContent=exp?"Ver menos":"Ver mais álbuns";
+  if(k===sig&&!force)return;sig=k;
+  g.classList.toggle("marq",mq);
+  if(mq){
+    g.innerHTML='<div class="track">'+Array.from({length:R*2},(_,r)=>CD.map(([a,i])=>card(a,i,r>0)).join("")).join("")+'</div>';
+    const t=g.firstChild;t.style.setProperty("--dur",Math.max(20,Math.round(t.scrollWidth/2/45))+"s");
+  }else{
+    g.innerHTML=CD.map(([a,i])=>card(a,i,false)).join("");
+    [...g.children].forEach((c,x)=>c.hidden=more&&!exp&&x>=n);
+  }
+}
+function covers(cat){CD=A.map((a,i)=>[a,i]).filter(([a])=>!cat||a.cat===cat);exp=false;sig="";fit()}
 $("#chips").innerHTML=["Todos",...new Set(A.map(a=>a.cat))].map((c,i)=>`<button aria-pressed="${i==0}" data-c="${i?c:""}">${c}</button>`).join("");
 covers("");
 
